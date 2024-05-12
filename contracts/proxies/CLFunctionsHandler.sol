@@ -18,13 +18,15 @@ abstract contract CLFunctionsHandler is FunctionsClient, ConfirmedOwner {
         address owner,
         bytes32 _donId,
         uint64 _subscriptionId,
-        uint32 _gasLimit
+        uint32 _gasLimit,
+        string memory _source
     ) internal {
         setupConfirmedOwner(owner);
         setRouter(router);
         donID = _donId;
         subscriptionId = _subscriptionId;
         gasLimit = _gasLimit;
+        source = _source;
     }
 
     function sendRequest(

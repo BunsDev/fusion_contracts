@@ -50,6 +50,10 @@ module.exports = {
       url: `https://sepolia.mode.network`,
       accounts: [PRIVATE_KEY],
     },
+    amoy: {
+      url: `https://rpc-amoy.polygon.technology`,
+      accounts: [PRIVATE_KEY],
+    },
   },
   etherscan: {
     apiKey: {
@@ -58,6 +62,7 @@ module.exports = {
       optimism: "89K6NC1QZIUZSA6A6S5SY1N3DVIBCJCD3A",
       Base: "BZP99H9U5SEDZTTP3BIBUYE5X2TMM9PX5Q",
       mode: "your API key",
+      amoy: "B66XTC9JBFDKZDANXSVSYK91INPIFW7KT5",
     },
     customChains: [
       {
@@ -98,6 +103,14 @@ module.exports = {
         urls: {
           apiURL: "https://explorer.mode.network/api/",
           browserURL: "https://explorer.mode.network/",
+        },
+      },
+      {
+        network: "amoy",
+        chainId: 80002,
+        urls: {
+          apiURL: "https://api-amoy.polygonscan.com/api",
+          browserURL: "https://amoy.polygonscan.com/",
         },
       },
     ],
