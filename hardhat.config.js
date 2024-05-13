@@ -54,6 +54,10 @@ module.exports = {
       url: `https://rpc-amoy.polygon.technology`,
       accounts: [PRIVATE_KEY],
     },
+    fuji: {
+      url: "https://api.avax-test.network/ext/bc/C/rpc",
+      accounts: [PRIVATE_KEY],
+    },
   },
   etherscan: {
     apiKey: {
@@ -63,6 +67,7 @@ module.exports = {
       Base: "BZP99H9U5SEDZTTP3BIBUYE5X2TMM9PX5Q",
       mode: "your API key",
       amoy: "B66XTC9JBFDKZDANXSVSYK91INPIFW7KT5",
+      fuji: "your API key",
     },
     customChains: [
       {
@@ -111,6 +116,15 @@ module.exports = {
         urls: {
           apiURL: "https://api-amoy.polygonscan.com/api",
           browserURL: "https://amoy.polygonscan.com/",
+        },
+      },
+      {
+        network: "fuji",
+        chainId: 43113,
+        urls: {
+          apiURL:
+            "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
+          browserURL: "https://c-chain.snowtrace.io",
         },
       },
     ],
