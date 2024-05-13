@@ -14,6 +14,12 @@ interface IFusionProxyFactory {
         string memory domain,
         bytes memory initializer
     ) external;
+
+    function createProxyWithRequest(
+        bytes memory baseProof,
+        string memory domain,
+        bytes memory initializer
+    ) external;
 }
 
 contract FactoryForwarder is EIP712, Nonces, FactoryLogManager, ServerHandler {
@@ -80,6 +86,18 @@ contract FactoryForwarder is EIP712, Nonces, FactoryLogManager, ServerHandler {
         emit DeploymentResult(magicValue);
     }
 
+    function executeWithRequest(
+        bytes calldata serverProof,
+        ForwardDeployData calldata request
+    ) public payable virtual returns (bytes4 magicValue) {
+        require(
+            isBase,
+            "FusionForwarder: only base chain can call this function"
+        );
+        magicValue = _deployWithRequest(serverProof, request, true);
+        emit DeploymentResult(magicValue);
+    }
+
     function _deploy(
         ForwardDeployData calldata request,
         bool requireValidRequest
@@ -115,6 +133,58 @@ contract FactoryForwarder is EIP712, Nonces, FactoryLogManager, ServerHandler {
             }(
                 abi.encodeWithSelector(
                     IFusionProxyFactory.createProxyWithDomain.selector,
+                    request.domain,
+                    request.initializer
+                )
+            );
+
+            _checkForwardedGas(gasleft(), request.gas);
+
+            if (!success) {
+                return DEPLOYMENT_FAILED;
+            }
+
+            return DEPLOYMENT_SUCCESSFUL;
+        }
+    }
+
+    function _deployWithRequest(
+        bytes calldata baseProof,
+        ForwardDeployData calldata request,
+        bool requireValidRequest
+    ) internal virtual returns (bytes4 magicValue) {
+        (
+            bool isTrustedForwarder,
+            bool active,
+            bool signerMatch,
+            address signer
+        ) = _validate(request);
+
+        if (requireValidRequest) {
+            if (!isTrustedForwarder) {
+                return UNTRUSTFUL_TARGET;
+            }
+
+            if (!active) {
+                return EXPIRED_REQUEST;
+            }
+
+            if (!signerMatch) {
+                return INVALID_SIGNER;
+            }
+        }
+
+        // Ignore an invalid request because requireValidRequest = false
+        if (isTrustedForwarder && signerMatch && active) {
+            // Nonce should be used before the call to prevent reusing by reentrancy
+            _useNonce(signer);
+
+            (bool success, ) = address(request.recipient).call{
+                gas: request.gas
+            }(
+                abi.encodeWithSelector(
+                    IFusionProxyFactory.createProxyWithRequest.selector,
+                    baseProof,
                     request.domain,
                     request.initializer
                 )
