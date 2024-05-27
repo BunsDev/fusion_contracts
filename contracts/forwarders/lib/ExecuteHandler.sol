@@ -65,9 +65,9 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             estimatedFees
         );
 
-        (bool success, ) = request.recipient.call{gas: request.gas}(
-            encodedParams
-        );
+        (bool success, bytes memory result) = request.recipient.call{
+            gas: request.gas
+        }(encodedParams);
 
         TargetChecker._checkForwardedGas(gasleft(), request.gas);
 
@@ -75,7 +75,7 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             return ForwarderLogManager.EXECUTION_FAILED;
         }
 
-        return ForwarderLogManager.EXECUTION_SUCCESSFUL;
+        return abi.decode(result, (bytes4));
     }
 
     function _executeBatch(
@@ -121,9 +121,9 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             estimatedFees
         );
 
-        (bool success, ) = request.recipient.call{gas: request.gas}(
-            encodedParams
-        );
+        (bool success, bytes memory result) = request.recipient.call{
+            gas: request.gas
+        }(encodedParams);
 
         TargetChecker._checkForwardedGas(gasleft(), request.gas);
 
@@ -131,7 +131,7 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             return ForwarderLogManager.EXECUTION_FAILED;
         }
 
-        return ForwarderLogManager.EXECUTION_SUCCESSFUL;
+        return abi.decode(result, (bytes4));
     }
 
     function _executeRecovery(
@@ -179,9 +179,9 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             estimatedFees
         );
 
-        (bool success, ) = request.recipient.call{gas: request.gas}(
-            encodedParams
-        );
+        (bool success, bytes memory result) = request.recipient.call{
+            gas: request.gas
+        }(encodedParams);
 
         TargetChecker._checkForwardedGas(gasleft(), request.gas);
 
@@ -189,7 +189,7 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             return ForwarderLogManager.EXECUTION_FAILED;
         }
 
-        return ForwarderLogManager.EXECUTION_SUCCESSFUL;
+        return abi.decode(result, (bytes4));
     }
 
     function _changeRecovery(
@@ -237,9 +237,9 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             estimatedFees
         );
 
-        (bool success, ) = request.recipient.call{gas: request.gas}(
-            encodedParams
-        );
+        (bool success, bytes memory result) = request.recipient.call{
+            gas: request.gas
+        }(encodedParams);
 
         TargetChecker._checkForwardedGas(gasleft(), request.gas);
 
@@ -247,7 +247,7 @@ abstract contract ExecuteHandler is EIP712, Nonces, DataManager {
             return ForwarderLogManager.EXECUTION_FAILED;
         }
 
-        return ForwarderLogManager.EXECUTION_SUCCESSFUL;
+        return abi.decode(result, (bytes4));
     }
 
     function encodeExecuteParams(
