@@ -11,7 +11,10 @@ async function main() {
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  const contract = await hre.ethers.deployContract("FusionVault", ["0"]);
+  const contract = await hre.ethers.deployContract("FusionProxyFactory", [
+    "0xd8c7f8D24d32C81641CBA0A294E35C22fcF38dFd",
+    "",
+  ]);
 
   console.log("Contract address:", await contract.getAddress());
 }

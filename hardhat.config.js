@@ -58,6 +58,10 @@ module.exports = {
       url: "https://api.avax-test.network/ext/bc/C/rpc",
       accounts: [PRIVATE_KEY],
     },
+    fusion: {
+      url: "https://subnets.avacloud.io/f80441f0-eac0-4eee-bd5f-aeebadf6ce23",
+      accounts: [PRIVATE_KEY],
+    },
   },
   etherscan: {
     apiKey: {

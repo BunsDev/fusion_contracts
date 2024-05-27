@@ -90,10 +90,7 @@ contract FactoryForwarder is EIP712, Nonces, FactoryLogManager, ServerHandler {
         bytes calldata serverProof,
         ForwardDeployData calldata request
     ) public payable virtual returns (bytes4 magicValue) {
-        require(
-            isBase,
-            "FusionForwarder: only base chain can call this function"
-        );
+        require(!isBase, "FusionForwarder: Only for sidechain");
         magicValue = _deployWithRequest(serverProof, request, true);
         emit DeploymentResult(magicValue);
     }

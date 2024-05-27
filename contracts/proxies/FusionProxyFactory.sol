@@ -16,7 +16,11 @@ contract FusionProxyFactory is
     CLFunctionsHandler
 {
     event ProxyCreation(FusionProxy indexed proxy, address singleton);
-    event RequestFulfilled(string indexed domain, bytes response, bytes error);
+    event DomainRequestFulfilled(
+        string indexed domain,
+        bytes response,
+        bytes error
+    );
     event SingletonUpdated(address singleton);
 
     address private GenesisAddress;
@@ -32,18 +36,12 @@ contract FusionProxyFactory is
     }
 
     struct request {
-        string domain;
         bytes initializer;
+        bool fulfilled;
     }
 
-    mapping(bytes32 => request) public requests;
-
-    struct fullfilledProps {
-        bytes initializer;
-        bool isRequestFulfilled;
-    }
-
-    mapping(string => fullfilledProps) public fulfilledRequests;
+    mapping(string => request) public requests;
+    mapping(bytes32 => string) public requestIds;
 
     modifier checkBase() {
         if (!IsBaseChain) {
@@ -171,7 +169,7 @@ contract FusionProxyFactory is
     }
 
     function createProxyWithRequest(
-        bytes memory baseProof,
+        string memory baseProof,
         string memory domain,
         bytes memory initializer
     ) public notBase returns (bytes32 requestId) {
@@ -179,12 +177,12 @@ contract FusionProxyFactory is
 
         string[] memory args = new string[](3);
 
-        args[0] = Conversion.bytesToString(baseProof);
+        args[0] = baseProof;
         args[1] = domain;
-        args[2] = Conversion.bytesToString(initializer);
 
         requestId = sendRequest(args);
-        requests[requestId] = request(domain, initializer);
+        requests[domain] = request(initializer, false);
+        requestIds[requestId] = domain;
     }
 
     function fulfillRequest(
@@ -192,30 +190,30 @@ contract FusionProxyFactory is
         bytes memory response,
         bytes memory err
     ) internal override {
-        request memory req = requests[requestId];
+        string memory domain = requestIds[requestId];
         uint256 _response = abi.decode(response, (uint256));
         require(_response == 1, "Request failed");
-        require(!isRequestFulfilled(req.domain), "Request already fulfilled");
+        require(!isRequestFulfilled(domain), "Request already fulfilled");
 
-        fulfilledRequests[req.domain] = fullfilledProps(req.initializer, true);
+        requests[domain].fulfilled = true;
 
-        emit RequestFulfilled(req.domain, response, err);
+        emit DomainRequestFulfilled(domain, response, err);
 
-        delete requests[requestId];
+        delete requestIds[requestId];
     }
 
     function finalizeProxyWithRequest(string memory domain) external notBase {
         require(isRequestFulfilled(domain), "Request not fulfilled");
 
-        _createProxyWithDomain(domain, fulfilledRequests[domain].initializer);
+        _createProxyWithDomain(domain, requests[domain].initializer);
 
-        delete fulfilledRequests[domain];
+        delete requests[domain];
     }
 
     function isRequestFulfilled(
         string memory domain
     ) public view returns (bool) {
-        return fulfilledRequests[domain].isRequestFulfilled;
+        return requests[domain].fulfilled;
     }
 
     function getFusionProxy(
