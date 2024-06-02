@@ -3,7 +3,7 @@
 ![Made-With-Solidity](https://img.shields.io/badge/MADE%20WITH-SOLIDITY-000000.svg?colorA=222222&style=for-the-badge&logoWidth=14&logo=solidity)
 ![Made-With-ChainLink](https://img.shields.io/badge/MADE%20WITH-ChainLink-fef8f4.svg?colorA=222222&style=for-the-badge&logoWidth=14)
 
-> Fusion is a multi-chain smart contract wallet that leverages ChainLink Functions and zero-knowledge proofs for cross-chain deployments and authentication.
+> Fusion is a multi-chain smart contract wallet that leverages ChainLink Functions and zero-knowledge proofs for cross-chain deployments and authentication. It also uses Avalanche Sub-Chain to provide unified Gas Credits and indexing transactions.
 
 This are the solidity smart contracts used in the _[getFusion.tech](https://getFusion.tech/)_ hackathon project at [Chainlink BlockMagic Hackathon 2024](https://chain.link/hackathon).
 
