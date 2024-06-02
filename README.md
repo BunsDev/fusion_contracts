@@ -13,11 +13,11 @@ These are the solidity smart contracts used in the _[getFusion.tech](https://get
 
 - **Avalanche fuji(Base-Chain)**
 
-  - Fusion - [0x3ED5EccFFD1afE3172A9DEeDeD795b479f95a841](https://testnet.snowtrace.io/address/0x3ED5EccFFD1afE3172A9DEeDeD795b479f95a841)
-  - Fusion Forwarder - [0x1Baf9847E474b1B548545b92F5186097DB4E77B1](https://testnet.snowtrace.io/address/0x1Baf9847E474b1B548545b92F5186097DB4E77B1)
-  - Factory Forwarder - [0x64d82895F0F60B35c28e567d7a576Bad8EBaf369](https://testnet.snowtrace.io/address/0x64d82895F0F60B35c28e567d7a576Bad8EBaf369)
-  - Fusion Proxy Factory - [0xf76B9F4D05189A968321AB9285fc66B0f3f76ab8](https://testnet.snowtrace.io/address/0xf76B9F4D05189A968321AB9285fc66B0f3f76ab8)
-  - Fusion Vault - [0x3D00e49fCee24826fa677fadb2e0625293369972](https://testnet.snowtrace.io/address/0x3D00e49fCee24826fa677fadb2e0625293369972)
+  - Fusion - [0x3ED5EccFFD1afE3172A9DEeDeD795b479f95a841](https://testnet.routescan.io/address/0x3ED5EccFFD1afE3172A9DEeDeD795b479f95a841)
+  - Fusion Forwarder - [0x1Baf9847E474b1B548545b92F5186097DB4E77B1](https://testnet.routescan.io/address/0x1Baf9847E474b1B548545b92F5186097DB4E77B1)
+  - Factory Forwarder - [0x64d82895F0F60B35c28e567d7a576Bad8EBaf369](https://testnet.routescan.io/address/0x64d82895F0F60B35c28e567d7a576Bad8EBaf369)
+  - Fusion Proxy Factory - [0xf76B9F4D05189A968321AB9285fc66B0f3f76ab8](https://testnet.routescan.io/address/0xf76B9F4D05189A968321AB9285fc66B0f3f76ab8)
+  - Fusion Vault - [0x3D00e49fCee24826fa677fadb2e0625293369972](https://testnet.routescan.io/address/0x3D00e49fCee24826fa677fadb2e0625293369972)
 
 - **Polygon Amoy(Side-Chain)**
 
