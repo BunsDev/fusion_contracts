@@ -11,9 +11,8 @@ async function main() {
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  const contract = await hre.ethers.deployContract("FusionProxyFactory", [
-    "0xd8c7f8D24d32C81641CBA0A294E35C22fcF38dFd",
-    "",
+  const contract = await hre.ethers.deployContract("BalanceHandler", [
+    "0xDb1d125C9f7faE45d7CeE470d048670a85270f4D",
   ]);
 
   console.log("Contract address:", await contract.getAddress());

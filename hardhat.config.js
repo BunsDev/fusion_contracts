@@ -59,7 +59,7 @@ module.exports = {
       accounts: [PRIVATE_KEY],
     },
     fusion: {
-      url: "https://subnets.avacloud.io/f80441f0-eac0-4eee-bd5f-aeebadf6ce23",
+      url: "https://subnets.avacloud.io/ae23139b-5e99-418c-bdd5-95aab29b9f1b",
       accounts: [PRIVATE_KEY],
     },
   },
