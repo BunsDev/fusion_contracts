@@ -69,6 +69,7 @@ module.exports = {
       opSepolia: "89K6NC1QZIUZSA6A6S5SY1N3DVIBCJCD3A",
       optimism: "89K6NC1QZIUZSA6A6S5SY1N3DVIBCJCD3A",
       Base: "BZP99H9U5SEDZTTP3BIBUYE5X2TMM9PX5Q",
+      baseSepolia: "BZP99H9U5SEDZTTP3BIBUYE5X2TMM9PX5Q",
       mode: "your API key",
       amoy: "B66XTC9JBFDKZDANXSVSYK91INPIFW7KT5",
       fuji: "your API key",
@@ -88,6 +89,14 @@ module.exports = {
         urls: {
           apiURL: "https://api-sepolia-optimistic.etherscan.io/api",
           browserURL: "https://sepolia-optimism.etherscan.io/",
+        },
+      },
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org/",
         },
       },
       {
